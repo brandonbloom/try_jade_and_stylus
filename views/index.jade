@@ -1,0 +1,30 @@
+:coffeescript
+  $ ->
+
+    $('#jade').keyup ->
+      $.post '/jade2html', $(@).val(), (data) ->
+        $('#html').val(data)
+
+    $('#stylus').keyup ->
+      $.post '/stylus2css', $(@).val(), (data) ->
+        error = (data == 'ERROR')
+        $('#stylus').toggleClass 'error'
+        $('#css').val(data) unless error
+
+table
+  tr
+    td
+      h1 Jade
+      textarea#jade
+    td
+      h1 HTML
+      textarea#html(readonly=true)
+
+table
+  tr
+    td
+      h1 Stylus
+      textarea#stylus
+    td
+      h1 CSS
+      textarea#css(readonly=true)
